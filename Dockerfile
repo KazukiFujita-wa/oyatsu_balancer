@@ -32,7 +32,7 @@ RUN apk add --no-cache \
     oniguruma-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 # Copy application code
 COPY --from=vendor /app/vendor /var/www/html/vendor
