@@ -29,7 +29,8 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     freetype-dev \
     libxml2-dev \
-    oniguruma-dev
+    oniguruma-dev \
+    postgresql-dev
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
