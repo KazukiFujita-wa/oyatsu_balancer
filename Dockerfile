@@ -5,7 +5,7 @@ WORKDIR /app
 COPY database/ database/
 COPY composer.json composer.json
 COPY composer.lock composer.lock
-RUN composer install --no-interaction --no-dev --no-scripts --prefer-dist
+RUN composer install --no-interaction --no-scripts --prefer-dist
 
 # Stage 2: Node.js Dependencies and Asset Compilation
 FROM node:18 as node
