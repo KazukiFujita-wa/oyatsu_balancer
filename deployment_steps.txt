@@ -1,0 +1,30 @@
+# Render Deployment Steps for oyatsu-balancer
+
+This file outlines the steps for deploying the oyatsu-balancer application to Render.
+
+## Deployment Method
+
+This project is configured for deployment using the `render.yaml` file.
+Simply connect your Git repository to Render, and it will automatically detect `render.yaml` and set up the services.
+
+## Manual Deployment / Environment Variables
+
+If you choose to set up the services manually instead of using `render.yaml`, you will need to configure the following environment variables in your Web Service on the Render dashboard.
+
+### Web Service Environment Variables
+
+- **APP_URL**: The public URL of your application (e.g., `https://oyatsu-balancer.onrender.com`). You can use `${RENDER_EXTERNAL_URL}` to have Render automatically set this.
+- **APP_KEY**: A unique, 32-character random string for Laravel. You can generate one locally using `php artisan key:generate --show`. **IMPORTANT**: Set this once and do not change it.
+- **APP_ENV**: Set to `production`.
+- **DB_CONNECTION**: Set to `pgsql`.
+- **DB_HOST**: The internal hostname of your Render PostgreSQL database.
+- **DB_PORT**: The port for your Render PostgreSQL database.
+- **DB_DATABASE**: The database name from your Render PostgreSQL service.
+- **DB_USERNAME**: The username from your Render PostgreSQL service.
+- **DB_PASSWORD**: The password from your Render PostgreSQL service.
+
+These database variables will be available for you to copy from the "Info" section of your PostgreSQL database service on Render. You can link them as a group to your web service.
+
+## Post-Deployment
+
+After a successful deployment, the application should be running and accessible at your Render URL. The entrypoint script (`docker-entrypoint.sh`) handles database migrations and application optimizations automatically.

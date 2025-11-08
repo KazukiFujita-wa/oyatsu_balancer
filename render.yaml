@@ -1,0 +1,49 @@
+services:
+  # Web Service
+  - type: web
+    name: oyatsu-balancer
+    env: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: APP_URL
+        value: https://${RENDER_EXTERNAL_URL}
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService:
+          type: pserv
+          name: oyatsu-db
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: pserv
+          name: oyatsu-db
+          property: port
+      - key: DB_DATABASE
+        fromService:
+          type: pserv
+          name: oyatsu-db
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: pserv
+          name: oyatsu-db
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: pserv
+          name: oyatsu-db
+          property: password
+
+  # PostgreSQL Database
+  - type: pserv
+    name: oyatsu-db
+    env: postgres
+    plan: free # or starter
+    pgaas:
+      version: "15"
